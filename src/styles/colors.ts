@@ -8,5 +8,5 @@ export const colors = {
   error: '#c53030',
   accent: '#14aac5',
   textLight: '#938899',
-  greyLight: '#cecece',
+  greyLight: '#e5e5e5',
 };

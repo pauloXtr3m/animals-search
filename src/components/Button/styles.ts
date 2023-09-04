@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 import { colors } from '../../styles/colors';
 
@@ -17,4 +17,14 @@ export const Container = styled.button`
   &:hover {
     background: ${shade(0.2, colors.accent)};
   }
+
+  ${props =>
+    props.disabled &&
+    css`
+      background: ${colors.greyLight};
+      cursor: default;
+      &:hover {
+        background: ${colors.greyLight};
+      }
+    `}
 `;
