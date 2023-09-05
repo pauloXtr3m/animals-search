@@ -24,6 +24,8 @@ function Input({
   icon: Icon,
   iconProps,
   showClearButton = false,
+  onChange,
+  style,
   ...rest
 }: InputProps): ReactElement {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -40,18 +42,22 @@ function Input({
   }, []);
 
   const handleInputBlur = useCallback(() => {
+    setIsFocused(false);
+    setIsFilled(!!inputRef.current?.value);
+  }, []);
+
+  const handleClearInput = useCallback(() => {
     if (!inputRef?.current) {
       return;
     }
 
     inputRef!.current!.value = '';
-  }, []);
-
-  const handleClearInput = useCallback(() => {
-    setIsFocused(false);
-
-    setIsFilled(!!inputRef.current?.value);
-  }, []);
+    if (onChange) {
+      onChange({
+        target: { value: '' },
+      } as React.ChangeEvent<HTMLInputElement>);
+    }
+  }, [inputRef.current]);
 
   const haveValue: boolean = useMemo(() => {
     if (!inputRef.current) return false;
@@ -73,12 +79,14 @@ function Input({
       isFilled={isFilled}
       isFocused={isFocused}
       onClick={handleInputFocus}
+      style={style}
     >
       {Icon && <Icon size={20} {...iconProps} />}
       <input
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
+        onChange={onChange}
         ref={inputRef}
         {...rest}
       />
