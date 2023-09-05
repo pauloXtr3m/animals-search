@@ -4,9 +4,9 @@ export const colors = {
   primaryDark: '#0041c5',
   background: '#ffffff',
   backgroundDark: '#dedede',
-  text: '#000000',
+  text: '#3c3c3c',
   error: '#c53030',
   accent: '#14aac5',
-  textLight: '#938899',
+  textLight: '#787878',
   greyLight: '#e5e5e5',
 };
