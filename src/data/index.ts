@@ -1,5 +1,5 @@
 import { AnimalModule, faker } from '@faker-js/faker';
-import { Animal } from '../hooks/search';
+import { Result } from '../services/api';
 
 function getImage(): string {
   return faker.image.urlLoremFlickr({
@@ -13,7 +13,7 @@ function getTitle(type: string): string {
   return faker.animal[type as keyof AnimalModule]();
 }
 
-const data: Animal[] = [...new Array(100)].map((item, index) => {
+const data: Result[] = [...new Array(100)].map((_, index) => {
   const type = faker.animal.type();
   return {
     type,
