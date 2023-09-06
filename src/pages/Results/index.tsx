@@ -1,10 +1,16 @@
-import React, { ReactElement, useCallback, useEffect, useRef } from 'react';
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { Form } from '@unform/web';
 
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import logoImg from '../../assets/logo.svg';
 
 import {
@@ -42,14 +48,13 @@ function Results(): ReactElement {
   } = useSearch();
   const navigate = useNavigate();
   const query = useQuery();
+  const searchQuery = useMemo(() => query.get('search'), [query]);
 
   useEffect(() => {
-    const searchQuery = query.get('search');
-
     if (searchQuery) {
       handleSearch(searchQuery);
     }
-  }, []);
+  }, [searchQuery]);
 
   const handleSubmit = useCallback(
     async (data: SearchFormData): Promise<void> => {
@@ -61,8 +66,10 @@ function Results(): ReactElement {
         });
 
         await schema.validate(data, { abortEarly: false });
-        await handleSearch(data.search);
-        await navigate('/results');
+        navigate({
+          pathname: '',
+          search: `?${createSearchParams({ search: data.search })}`,
+        });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -98,7 +105,7 @@ function Results(): ReactElement {
               iconProps={{ color: colors.greyLight }}
               showClearButton
               style={{ maxWidth: isMobile() ? '80%' : '50%' }}
-              initialValue={query.get('search')}
+              initialValue={searchQuery}
             />
           </Form>
         </TopBar>
