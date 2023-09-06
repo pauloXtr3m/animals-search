@@ -19,11 +19,11 @@ export function ResultList({ data, loading, searchText }: Props): ReactElement {
     return (
       <div>
         {!!searchText && (
-          <p>
+          <p id="not-found-result-for">
             Not found for <b>{`'${searchText}'`}</b>
           </p>
         )}
-        <p style={{ marginTop: 12 }}>
+        <p id="suggestions-text" style={{ marginTop: 12 }}>
           Try looking for:{' '}
           <b>
             insect, fish, horse, bear, cetacean, cow, lion, rabbit, cat, snake,
@@ -37,7 +37,7 @@ export function ResultList({ data, loading, searchText }: Props): ReactElement {
   return (
     <Container>
       {data.map(item => (
-        <ResultItem {...item} />
+        <ResultItem key={`result-item-${item.id}`} {...item} />
       ))}
     </Container>
   );

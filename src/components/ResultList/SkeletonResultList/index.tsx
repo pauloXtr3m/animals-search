@@ -4,7 +4,7 @@ import { ListContainer } from './styles';
 
 export function SkeletonResultList(): ReactElement {
   return (
-    <ListContainer>
+    <ListContainer id="skeleton-result-list">
       {[...new Array(4)].map(value => (
         <SkeletonListItem key={`Skeleton-list-item-${value}`} />
       ))}
