@@ -8,10 +8,6 @@ To download dependencies run:
 
 ### `yarn`
 
-### Environment
-
-Rename `.env.example` to `.env`
-
 ## Run
 
 In the project directory, you can run:
