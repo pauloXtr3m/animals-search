@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 import logoImg from '../../assets/logo.svg';
 
 import {
@@ -44,8 +44,10 @@ function Search(): ReactElement {
         });
 
         await schema.validate(data, { abortEarly: false });
-        handleSearch(data.search);
-        navigate('/results', { state: { searchText } });
+        navigate({
+          pathname: 'results',
+          search: `?${createSearchParams({ search: data.search })}`,
+        });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);

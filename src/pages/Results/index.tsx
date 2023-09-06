@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useRef } from 'react';
+import React, { ReactElement, useCallback, useEffect, useRef } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { Form } from '@unform/web';
 
@@ -22,6 +22,7 @@ import { colors } from '../../styles/colors';
 import { ResultList } from '../../components/ResultList';
 import isMobile from '../../utils/isMobile';
 import { ResultCard } from '../../components/ResultCard';
+import useQuery from '../../hooks/query';
 
 interface SearchFormData {
   search: string;
@@ -40,6 +41,15 @@ function Results(): ReactElement {
     clearResult,
   } = useSearch();
   const navigate = useNavigate();
+  const query = useQuery();
+
+  useEffect(() => {
+    const searchQuery = query.get('search');
+
+    if (searchQuery) {
+      handleSearch(searchQuery);
+    }
+  }, []);
 
   const handleSubmit = useCallback(
     async (data: SearchFormData): Promise<void> => {
@@ -88,7 +98,7 @@ function Results(): ReactElement {
               iconProps={{ color: colors.greyLight }}
               showClearButton
               style={{ maxWidth: isMobile() ? '80%' : '50%' }}
-              defaultValue={searchText}
+              initialValue={query.get('search')}
             />
           </Form>
         </TopBar>

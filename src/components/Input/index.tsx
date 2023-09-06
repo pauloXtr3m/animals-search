@@ -17,6 +17,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon: React.ComponentType<IconBaseProps>;
   iconProps?: IconBaseProps;
   showClearButton?: boolean;
+  initialValue?: string | null;
 }
 
 function Input({
@@ -26,6 +27,7 @@ function Input({
   showClearButton = false,
   onChange,
   style,
+  initialValue,
   ...rest
 }: InputProps): ReactElement {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,6 +66,12 @@ function Input({
 
     return !!inputRef.current.value && showClearButton;
   }, [inputRef?.current?.value, showClearButton]);
+
+  useEffect(() => {
+    if (inputRef.current && initialValue) {
+      inputRef!.current!.value = initialValue;
+    }
+  }, []);
 
   useEffect(() => {
     registerField({
