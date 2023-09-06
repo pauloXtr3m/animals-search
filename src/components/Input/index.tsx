@@ -65,7 +65,7 @@ function Input({
     if (!inputRef.current) return false;
 
     return !!inputRef.current.value && showClearButton;
-  }, [inputRef?.current?.value, showClearButton]);
+  }, [!!inputRef.current, showClearButton]);
 
   useEffect(() => {
     if (inputRef.current && initialValue) {
@@ -100,6 +100,7 @@ function Input({
       />
       {haveValue && (
         <FiX
+          id="icon-clear-input-value"
           size={20}
           {...iconProps}
           style={{ cursor: 'pointer' }}
