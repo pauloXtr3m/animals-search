@@ -10,15 +10,6 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 95%;
-  max-width: 700px;
-`;
-
 const fromUp = keyframes`
   from {
     opacity: 0;
@@ -36,6 +27,10 @@ export const TopBar = styled.div`
   width: 100%;
   border-bottom: solid ${colors.greyLight};
   animation: ${fromUp} 1s;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  background: white;
 `;
 
 export const AnimationContainer = styled.div`
@@ -105,10 +100,10 @@ const fromBottom = keyframes`
 export const ResultsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 32px 100px 32px 100px;
+  padding: 120px 100px 32px 100px;
   ${isMobile() &&
   css`
-    padding: 8px 24px 8px 24px;
+    padding: 110px 24px 8px 24px;
   `}
   height: 100%;
   width: 100%;
